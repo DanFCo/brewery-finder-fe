@@ -37,13 +37,20 @@ fetch("http://localhost:3000/search",{
     "Accepts": "application/json",
   },
   body: JSON.stringify({
-    search: this.state.state
+    state: this.state.state
   })
 }).then(response => response.json())
-.then(console.log)
+.then(breweries =>{
+  this.setState({
+    breweries
+  })
+})
 
 }
 
+breweriesByCity = (arr) =>{
+  
+}
 
 
   changeHandler = (event) =>{
