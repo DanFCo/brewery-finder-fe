@@ -8,18 +8,13 @@ class App extends React.Component {
   state={
     breweries: [],
     state: "",
-    us_states: []
+    city: "",
+    us_states: [],
+    cities: [],
+    filteredBreweries: []
   }
 
   componentDidMount(){
-    // fetch("http://localhost:3000/breweries")
-    // .then(response => response.json())
-    // .then(data =>{
-    //   this.setState({
-    //     breweries: data
-    //   })
-    //
-    // })
     fetch("http://localhost:3000/us-states")
     .then(response => response.json())
     .then(data =>{
@@ -29,28 +24,56 @@ class App extends React.Component {
     })
   }
 
-breweriesByState = (state) =>{
-fetch("http://localhost:3000/search",{
-  method: "POST",
-  headers: {
-    "Content-Type": "application/json",
-    "Accepts": "application/json",
-  },
-  body: JSON.stringify({
-    state: this.state.state
-  })
-}).then(response => response.json())
-.then(breweries =>{
-  this.setState({
-    breweries
-  })
-})
+  breweriesByState = (state) =>{
+    fetch("http://localhost:3000/search",{
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "Accepts": "application/json",
+      },
+      body: JSON.stringify({
+        state: this.state.state
+      })
+    }).then(response => response.json())
+    .then(breweries =>{
+      this.setState({
+        breweries
+      })
+      this.grabCitiesFromBreweries()
+    })
+  }
 
-}
+  grabCitiesFromBreweries = () =>{
 
-breweriesByCity = (arr) =>{
-  
-}
+    let breweries = this.state.breweries
+    let temp = {}
+    for(let i = 0; i < breweries.length; i++){
+      temp[breweries[i].city] = true
+    }
+    this.setState({
+      cities: Object.keys(temp).sort()
+    })
+  }
+
+
+
+
+
+  breweriesByCity = (city) =>{
+    let arrCopy = [...this.state.breweries]
+    let newArr = []
+     newArr = arrCopy.filter(brewery =>{
+
+      return brewery.city === this.state.city
+
+    })
+
+    this.setState({
+      filteredBreweries: newArr
+    })
+
+
+  }
 
 
   changeHandler = (event) =>{
@@ -62,41 +85,67 @@ breweriesByCity = (arr) =>{
   clickHandler = (event) =>{
     event.preventDefault()
     this.breweriesByState(this.state.state)
+    this.setState({
+      filteredBreweries: []
+    })
 
   }
 
-dropDownHandler = (event) =>{
-  this.setState({
-    state: event.target.value
-  })
-}
+  dropDownHandler = (event) =>{
+    this.setState({
+      state: event.target.value
+    })
+  }
 
 
 
   render() {
+console.log(this.state.filteredBreweries)
     return (
+
       <div>
-<select onChange={this.dropDownHandler}>
-  {this.state.us_states.map(state =>{
 
-      return  <option value={state[0]} >{state[1]}</option>
+        <select onChange={this.dropDownHandler}>
+          {this.state.us_states.map(state =>{
 
-   })
-  }
+            return  <option key={state[1]} value={state[0]} >{state[0]}</option>
+
+          })
+        }
 
 
-</select>
-        <input onChange={this.changeHandler} name="state" />
-        <button onClick={this.clickHandler} >Submit</button>
-        {this.state.breweries.map(brewery =>{
+      </select>
 
-          return <Brewery key={brewery.id} data={brewery} />
+      <button onClick={this.clickHandler} >Submit</button>
+
+
+
+<select onChange={this.changeHandler} name="city" >
+        {this.state.cities.map(city =>{
+
+          return <option key={city} value={city}>{city}</option>
 
         })}
 
-      </div>
-    );
-  }
+
+      </select>
+      <button onClick={this.breweriesByCity} >Filter by City</button>
+      <br/>
+
+
+      <input onChange={this.changeHandler} name="state" />
+
+      {this.state.breweries.map(brewery =>{
+
+        return <Brewery key={brewery.id} data={brewery} />
+
+      })}
+
+
+
+    </div>
+  );
+}
 
 
 }//---------end of class------------
