@@ -83,7 +83,7 @@ class App extends React.Component {
   }
 
   clickHandler = (event) =>{
-    event.preventDefault()
+    // event.preventDefault()
     this.breweriesByState(this.state.state)
     this.setState({
       filteredBreweries: []
@@ -100,7 +100,8 @@ class App extends React.Component {
 
 
   render() {
-console.log(this.state.filteredBreweries)
+let breweryData = this.state.filteredBreweries.length > 0 ? this.state.filteredBreweries : this.state.breweries
+console.log(breweryData, this.state.filteredBreweries, this.state.breweries)
     return (
 
       <div>
@@ -116,7 +117,7 @@ console.log(this.state.filteredBreweries)
 
       </select>
 
-      <button onClick={this.clickHandler} >Submit</button>
+       <button onClick={this.clickHandler} >Submit</button>
 
 
 
@@ -135,7 +136,7 @@ console.log(this.state.filteredBreweries)
 
       <input onChange={this.changeHandler} name="state" />
 
-      {this.state.breweries.map(brewery =>{
+      {breweryData.map(brewery =>{
 
         return <Brewery key={brewery.id} data={brewery} />
 
