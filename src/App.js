@@ -60,9 +60,13 @@ class App extends React.Component {
 
 
   breweriesByCity = (city) =>{
+
     let arrCopy = [...this.state.breweries]
     let newArr = []
-     newArr = arrCopy.filter(brewery =>{
+    if(city === "Any"){
+      newArr = [...this.state.breweries]
+    }
+    newArr = arrCopy.filter(brewery =>{
 
       return brewery.city === this.state.city
 
@@ -83,7 +87,6 @@ class App extends React.Component {
   }
 
   clickHandler = (event) =>{
-    // event.preventDefault()
     this.breweriesByState(this.state.state)
     this.setState({
       filteredBreweries: []
@@ -100,13 +103,14 @@ class App extends React.Component {
 
 
   render() {
-let breweryData = this.state.filteredBreweries.length > 0 ? this.state.filteredBreweries : this.state.breweries
-console.log(breweryData, this.state.filteredBreweries, this.state.breweries)
+    let breweryData = this.state.filteredBreweries.length > 0 ? this.state.filteredBreweries : this.state.breweries
+    console.log(breweryData, this.state.filteredBreweries, this.state.breweries)
     return (
 
       <div>
 
         <select onChange={this.dropDownHandler}>
+          <option>---Choose State---</option>
           {this.state.us_states.map(state =>{
 
             return  <option key={state[1]} value={state[0]} >{state[0]}</option>
@@ -117,11 +121,12 @@ console.log(breweryData, this.state.filteredBreweries, this.state.breweries)
 
       </select>
 
-       <button onClick={this.clickHandler} >Submit</button>
+      <button onClick={this.clickHandler} >Submit</button>
 
 
 
-<select onChange={this.changeHandler} name="city" >
+      <select onChange={this.changeHandler} name="city" >
+        <option value="Any">Any</option>
         {this.state.cities.map(city =>{
 
           return <option key={city} value={city}>{city}</option>
