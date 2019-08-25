@@ -1,5 +1,6 @@
 import React from 'react';
 import Brewery from './Brewery'
+import { connect } from 'react-redux'
 import './App.css';
 
 
