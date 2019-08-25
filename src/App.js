@@ -125,7 +125,7 @@ class App extends React.Component {
 
 
 
-      <select onChange={this.changeHandler} name="city" >
+      <select onChange={this.changeHandler} name="city">
         <option value="Any">Any</option>
         {this.state.cities.map(city =>{
 
