@@ -65,10 +65,12 @@ const defaultState={
 function reducer(state=defaultState, action){
 
 switch(action.type){
-case "ADD_BREWERIS":
+case "ADD_BREWERIES":
   return{...state, breweries: action.payload}
-
-
+case "ADD_FILTERED_BREWERIES":
+  return{...state, filteredBreweries: action.payload}
+case "CLEAR_FILTERED_BREWERIES":
+  return{...state, filteredBreweries:[]}
   default:
     return state
 }

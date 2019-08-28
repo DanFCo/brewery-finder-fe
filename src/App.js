@@ -30,16 +30,17 @@ class App extends React.Component {
       })
     }).then(response => response.json())
     .then(breweries =>{
-      this.setState({
-        breweries
-      })
+      // this.setState({
+      //   breweries
+      // })
+      this.props.grabBreweries(breweries)
       this.grabCitiesFromBreweries()
     })
   }
 
   grabCitiesFromBreweries = () =>{
 
-    let breweries = this.state.breweries
+    let breweries = this.props.breweries
     let temp = {}
     for(let i = 0; i < breweries.length; i++){
       temp[breweries[i].city] = true
@@ -55,10 +56,10 @@ class App extends React.Component {
 
   breweriesByCity = (city) =>{
 
-    let arrCopy = [...this.state.breweries]
+    let arrCopy = [...this.props.breweries]
     let newArr = []
     if(city === "Any"){
-      newArr = [...this.state.breweries]
+      newArr = [...this.props.breweries]
     }
     newArr = arrCopy.filter(brewery =>{
 
@@ -69,7 +70,7 @@ class App extends React.Component {
     this.setState({
       filteredBreweries: newArr
     })
-
+    // this.props.grabFilteredBreweries(newArr)
 
   }
 
@@ -82,13 +83,14 @@ class App extends React.Component {
 
   clickHandler = (event) =>{
     this.breweriesByState(this.state.select_state)
+
     this.setState({
       filteredBreweries: []
     })
   }
 //--^^^right now this is working----------------------VVV Try to get this working
   dropDownHandler = (event) =>{
-    this.breweriesByState(this.state.select_state)
+    // this.breweriesByState(this.state.select_state)
     this.setState({
       filteredBreweries: [],
       select_state: event.target.value
@@ -99,8 +101,8 @@ class App extends React.Component {
 
 
   render() {
-    let breweryData = this.state.filteredBreweries.length > 0 ? this.state.filteredBreweries : this.state.breweries
-
+    let breweryData = this.state.filteredBreweries.length > 0 ? this.state.filteredBreweries : this.props.breweries
+console.log(this.props)
     return (
 
       <div>
@@ -155,7 +157,9 @@ class App extends React.Component {
 function mapStateToProps(state){
 
   return {
-    us_states: state.us_states
+    us_states: state.us_states,
+    breweries: state.breweries,
+    filteredBreweries: state.filteredBreweries
 
   }
 
@@ -164,9 +168,15 @@ function mapStateToProps(state){
 function mapDispatchToProps(dispatch){
 
   return {
-    grabState:(state)=>{
-      dispatch({type:"ADD_BREWERIES", payload: state})
-    }
+      grabBreweries:(breweries)=>{
+        dispatch({type:"ADD_BREWERIES", payload: breweries})
+      },
+      grabFilteredBreweries:(breweries)=>{
+        dispatch({type:"ADD_FILTERED_BREWERIES", payload: breweries})
+      },
+      clearFilteredBreweries:()=>{
+        dispatch({type:"CLEAR_FILTERED_BREWERIES"})
+      }
   }
 }
 
