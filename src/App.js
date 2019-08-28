@@ -15,8 +15,6 @@ class App extends React.Component {
   }
 
   componentDidMount(){
-    this.props.grabState("testing this out")
-
 
   }
 
@@ -83,19 +81,21 @@ class App extends React.Component {
   }
 
   clickHandler = (event) =>{
-    this.breweriesByState(this.state.state)
+    this.breweriesByState(this.state.select_state)
     this.setState({
       filteredBreweries: []
     })
-
   }
-
+//--^^^right now this is working----------------------VVV Try to get this working
   dropDownHandler = (event) =>{
+    this.breweriesByState(this.state.select_state)
     this.setState({
+      filteredBreweries: [],
       select_state: event.target.value
     })
-  }
 
+  }
+//----------------------------------------------------------------------------
 
 
   render() {
@@ -155,8 +155,8 @@ class App extends React.Component {
 function mapStateToProps(state){
 
   return {
-    us_states: state.us_states,
-    state: state.state
+    us_states: state.us_states
+
   }
 
 }
@@ -165,7 +165,7 @@ function mapDispatchToProps(dispatch){
 
   return {
     grabState:(state)=>{
-      dispatch({type:"ADD_STATE", payload: state})
+      dispatch({type:"ADD_BREWERIES", payload: state})
     }
   }
 }
