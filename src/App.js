@@ -8,21 +8,16 @@ class App extends React.Component {
 
   state={
     breweries: [],
-    state: "",
+    select_state: "",
     city: "",
-    us_states: [],
     cities: [],
     filteredBreweries: []
   }
 
   componentDidMount(){
-    fetch("http://localhost:3000/us-states")
-    .then(response => response.json())
-    .then(data =>{
-      this.setState({
-        us_states: data
-      })
-    })
+    this.props.grabState("testing this out")
+
+
   }
 
   breweriesByState = (state) =>{
@@ -33,7 +28,7 @@ class App extends React.Component {
         "Accepts": "application/json",
       },
       body: JSON.stringify({
-        state: this.state.state
+        state: this.state.select_state
       })
     }).then(response => response.json())
     .then(breweries =>{
@@ -97,7 +92,7 @@ class App extends React.Component {
 
   dropDownHandler = (event) =>{
     this.setState({
-      state: event.target.value
+      select_state: event.target.value
     })
   }
 
@@ -105,14 +100,14 @@ class App extends React.Component {
 
   render() {
     let breweryData = this.state.filteredBreweries.length > 0 ? this.state.filteredBreweries : this.state.breweries
-    console.log(breweryData, this.state.filteredBreweries, this.state.breweries)
+
     return (
 
       <div>
 
         <select onChange={this.dropDownHandler}>
           <option>---Choose State---</option>
-          {this.state.us_states.map(state =>{
+          {this.props.us_states.map(state =>{
 
             return  <option key={state[1]} value={state[0]} >{state[0]}</option>
 
@@ -140,7 +135,7 @@ class App extends React.Component {
       <br/>
 
 
-      <input onChange={this.changeHandler} name="state" />
+      <input onChange={this.changeHandler} name="select_state" />
 
       {breweryData.map(brewery =>{
 
@@ -157,4 +152,27 @@ class App extends React.Component {
 
 }//---------end of class------------
 
-export default App;
+function mapStateToProps(state){
+
+  return {
+    us_states: state.us_states,
+    state: state.state
+  }
+
+}
+
+function mapDispatchToProps(dispatch){
+
+  return {
+    grabState:(state)=>{
+      dispatch({type:"ADD_STATE", payload: state})
+    }
+  }
+}
+
+
+
+
+
+
+export default connect(mapStateToProps,mapDispatchToProps)(App)
