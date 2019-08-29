@@ -8,10 +8,11 @@ class App extends React.Component {
 
   state={
     breweries: [],
-    select_state: "",
+    select_state: "default",
     city: "",
     cities: [],
-    filteredBreweries: []
+    filteredBreweries: [],
+    citySearch: false
   }
 
   componentDidMount(){
@@ -85,24 +86,30 @@ class App extends React.Component {
     this.breweriesByState(this.state.select_state)
 
     this.setState({
-      filteredBreweries: []
+      filteredBreweries: [],
+      citySearch: true
     })
   }
 //--^^^right now this is working----------------------VVV Try to get this working
+
   dropDownHandler = (event) =>{
-    // this.breweriesByState(this.state.select_state)
+
     this.setState({
-      filteredBreweries: [],
-      select_state: event.target.value
+    //   // filteredBreweries: [], <-----this causes all breweries from previous state to load when new state is chosen
+      select_state: event.target.value,
+      citySearch: false
     })
 
+    this.breweriesByState(this.state.select_state)
+
+    // this.promise().testing().then(console.log(this.state, "dropDownHandler"))
   }
 //----------------------------------------------------------------------------
 
 
   render() {
     let breweryData = this.state.filteredBreweries.length > 0 ? this.state.filteredBreweries : this.props.breweries
-console.log(this.props)
+console.log(this.state)
     return (
 
       <div>
@@ -121,8 +128,9 @@ console.log(this.props)
 
       <button onClick={this.clickHandler} >Submit</button>
 
+{ this.state.citySearch ?
 
-
+  <div>
       <select onChange={this.changeHandler} name="city">
         <option value="Any">Any</option>
         {this.state.cities.map(city =>{
@@ -137,15 +145,18 @@ console.log(this.props)
       <br/>
 
 
-      <input onChange={this.changeHandler} name="select_state" />
+      {// <input onChange={this.changeHandler} name="select_state" />
+  }
 
-      {breweryData.map(brewery =>{
+    </div>
+      :
+      null
 
-        return <Brewery key={brewery.id} data={brewery} />
+}
+{breweryData.map(brewery =>{
 
-      })}
-
-
+  return <Brewery key={brewery.id} data={brewery} />
+})}
 
     </div>
   );
