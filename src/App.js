@@ -89,6 +89,7 @@ class App extends React.Component {
       filteredBreweries: [],
       citySearch: true
     })
+
   }
 //--^^^right now this is working----------------------VVV Try to get this working
 
@@ -98,6 +99,7 @@ class App extends React.Component {
     //   // filteredBreweries: [], <-----this causes all breweries from previous state to load when new state is chosen
       select_state: event.target.value,
       citySearch: false
+
     })
 
     this.breweriesByState(this.state.select_state)
@@ -105,7 +107,11 @@ class App extends React.Component {
     // this.promise().testing().then(console.log(this.state, "dropDownHandler"))
   }
 //----------------------------------------------------------------------------
-
+citySearchToggle = () =>{
+  this.setState(prevState => ({
+    citySearch: !prevState.citySearch
+  }))
+}
 
   render() {
     let breweryData = this.state.filteredBreweries.length > 0 ? this.state.filteredBreweries : this.props.breweries
@@ -145,8 +151,7 @@ console.log(this.state)
       <br/>
 
 
-      {// <input onChange={this.changeHandler} name="select_state" />
-  }
+
 
     </div>
       :
