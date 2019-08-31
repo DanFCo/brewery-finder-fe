@@ -7,16 +7,13 @@ import './App.css';
 class App extends React.Component {
 
   state={
-    breweries: [],
     select_state: "default",
     city: "",
-    cities: [],
-    filteredBreweries: [],
     citySearch: false
   }
 
   componentDidMount(){
-
+    // console.log(this.props.breweries)
   }
 
   breweriesByState = (state) =>{
@@ -31,9 +28,6 @@ class App extends React.Component {
       })
     }).then(response => response.json())
     .then(breweries =>{
-      // this.setState({
-      //   breweries
-      // })
       this.props.grabBreweries(breweries)
       this.grabCitiesFromBreweries()
     })
@@ -43,12 +37,12 @@ class App extends React.Component {
 
     let breweries = this.props.breweries
     let temp = {}
+    let cities = []
     for(let i = 0; i < breweries.length; i++){
       temp[breweries[i].city] = true
     }
-    this.setState({
-      cities: Object.keys(temp).sort()
-    })
+    cities = Object.keys(temp).sort()
+    this.props.grabCities(cities)
   }
 
 
@@ -63,16 +57,13 @@ class App extends React.Component {
       newArr = [...this.props.breweries]
     }
     newArr = arrCopy.filter(brewery =>{
-
       return brewery.city === this.state.city
-
     })
 
     this.setState({
       filteredBreweries: newArr
     })
-    // this.props.grabFilteredBreweries(newArr)
-
+    this.props.grabFilteredBreweries(newArr)
   }
 
 
@@ -91,31 +82,28 @@ class App extends React.Component {
     })
 
   }
-//--^^^right now this is working----------------------VVV Try to get this working
+  //--^^^right now this is working----------------------VVV Try to get this working
 
   dropDownHandler = (event) =>{
+    // this.props.clearBreweries()
+    this.props.clearFilteredBreweries()
 
     this.setState({
-    //   // filteredBreweries: [], <-----this causes all breweries from previous state to load when new state is chosen
+      //   // filteredBreweries: [], <-----this causes all breweries from previous state to load when new state is chosen
       select_state: event.target.value,
       citySearch: false
-
     })
 
     this.breweriesByState(this.state.select_state)
 
     // this.promise().testing().then(console.log(this.state, "dropDownHandler"))
   }
-//----------------------------------------------------------------------------
-citySearchToggle = () =>{
-  this.setState(prevState => ({
-    citySearch: !prevState.citySearch
-  }))
-}
+  //----------------------------------------------------------------------------
+
 
   render() {
-    let breweryData = this.state.filteredBreweries.length > 0 ? this.state.filteredBreweries : this.props.breweries
-console.log(this.state)
+    let breweryData = this.props.filteredBreweries.length > 0 ? this.props.filteredBreweries : this.props.breweries
+
     return (
 
       <div>
@@ -123,9 +111,7 @@ console.log(this.state)
         <select onChange={this.dropDownHandler}>
           <option>---Choose State---</option>
           {this.props.us_states.map(state =>{
-
             return  <option key={state[1]} value={state[0]} >{state[0]}</option>
-
           })
         }
 
@@ -133,35 +119,43 @@ console.log(this.state)
       </select>
 
       <button onClick={this.clickHandler} >Submit</button>
+      {
+        //------------------ternary for city search---------------------------
+      }
 
-{ this.state.citySearch ?
+      { this.state.citySearch ?
 
-  <div>
-      <select onChange={this.changeHandler} name="city">
-        <option value="Any">Any</option>
-        {this.state.cities.map(city =>{
+        <div>
+          <select onChange={this.changeHandler} name="city">
+            <option value="Any">Any</option>
+            {this.props.cities.map(city =>{
 
-          return <option key={city} value={city}>{city}</option>
+              return <option key={city} value={city}>{city}</option>
 
-        })}
-
-
-      </select>
-      <button onClick={this.breweriesByCity} >Filter by City</button>
-      <br/>
+            })}
 
 
+          </select>
+          <button onClick={this.breweriesByCity} >Filter by City</button>
+          <br/>
 
 
-    </div>
-      :
-      null
 
-}
-{breweryData.map(brewery =>{
 
-  return <Brewery key={brewery.id} data={brewery} />
-})}
+        </div>
+        :
+        null
+
+      }
+
+      {
+        //--------------end of ternary for search by city------------------------
+      }
+
+      {breweryData.map(brewery =>{
+
+        return <Brewery key={brewery.id} data={brewery} />
+      })}
 
     </div>
   );
@@ -175,7 +169,8 @@ function mapStateToProps(state){
   return {
     us_states: state.us_states,
     breweries: state.breweries,
-    filteredBreweries: state.filteredBreweries
+    filteredBreweries: state.filteredBreweries,
+    cities: state.cities
 
   }
 
@@ -184,15 +179,21 @@ function mapStateToProps(state){
 function mapDispatchToProps(dispatch){
 
   return {
-      grabBreweries:(breweries)=>{
-        dispatch({type:"ADD_BREWERIES", payload: breweries})
-      },
-      grabFilteredBreweries:(breweries)=>{
-        dispatch({type:"ADD_FILTERED_BREWERIES", payload: breweries})
-      },
-      clearFilteredBreweries:()=>{
-        dispatch({type:"CLEAR_FILTERED_BREWERIES"})
-      }
+    grabBreweries:(breweries)=>{
+      dispatch({type:"ADD_BREWERIES", payload: breweries})
+    },
+    grabFilteredBreweries:(breweries)=>{
+      dispatch({type:"ADD_FILTERED_BREWERIES", payload: breweries})
+    },
+    clearFilteredBreweries:()=>{
+      dispatch({type:"CLEAR_FILTERED_BREWERIES"})
+    },
+    clearBreweries:()=>{
+      dispatch({type:"CLEAR_BREWERIES"})
+    },
+    grabCities:(cities)=>{
+      dispatch({type:"GRAB_CITIES", payload: cities})
+    }
   }
 }
 
