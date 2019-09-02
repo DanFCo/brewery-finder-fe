@@ -1,7 +1,9 @@
 import React from 'react';
 import Brewery from './Brewery'
 import { connect } from 'react-redux'
+import BreweryPage from './BreweryPage'
 import './App.css';
+
 
 
 class App extends React.Component {
@@ -13,7 +15,7 @@ class App extends React.Component {
   }
 
   componentDidMount(){
-    // console.log(this.props.breweries)
+    console.log(this.props)
   }
 
   breweriesByState = (state) =>{
@@ -107,7 +109,7 @@ class App extends React.Component {
     return (
 
       <div>
-
+<p>
         <select onChange={this.dropDownHandler}>
           <option>---Choose State---</option>
           {this.props.us_states.map(state =>{
@@ -119,6 +121,9 @@ class App extends React.Component {
       </select>
 
       <button onClick={this.clickHandler} >Submit</button>
+
+    </p>
+    <p>
       {
         //------------------ternary for city search---------------------------
       }
@@ -151,6 +156,7 @@ class App extends React.Component {
       {
         //--------------end of ternary for search by city------------------------
       }
+    </p>
 
       {breweryData.map(brewery =>{
 
