@@ -4,13 +4,17 @@ import { connect } from 'react-redux'
 
 class Brewery extends React.Component {
 
-
-
-
   pageButton = (brewery) =>{
+    this.clearAllBreweries()
     this.props.grabSelectBrewery(brewery)
     this.props.history.push(`/brewery/${brewery.id}`)
   }
+
+  clearAllBreweries = () =>{
+  this.props.clearBreweries()
+  this.props.clearFilteredBreweries()
+  }
+
 
   render() {
 // console.log(this.props, "hello from Brewery")
@@ -37,6 +41,12 @@ function mapDispatchToProps(dispatch){
   return{
     grabSelectBrewery:(brewery)=>{
       dispatch({type:"ADD_SELECT_BREWERY", payload: brewery})
+    },
+    clearBreweries:()=>{
+      dispatch({type:"CLEAR_BREWERIES"})
+    },
+    clearFilteredBreweries:()=>{
+      dispatch({type:"CLEAR_FILTERED_BREWERIES"})
     }
   }
 

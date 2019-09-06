@@ -97,6 +97,7 @@ class App extends React.Component {
       select_state: event.target.value,
       citySearch: false
     })
+    this.props.history.push('/')
 
 
 
@@ -132,25 +133,24 @@ class App extends React.Component {
     { this.state.citySearch ?
 
       <div>
-      <select onChange={this.changeHandler} name="city">
-      <option value="Any">Any</option>
-      {this.props.cities.map(city =>{
+          <select onChange={this.changeHandler} name="city">
+              <option value="Any">Any</option>
+                  {this.props.cities.map(city =>{
+                    return <option key={city} value={city}>{city}</option>
 
-        return <option key={city} value={city}>{city}</option>
-
-      })}
+                  })}
 
 
-      </select>
-      <button onClick={this.breweriesByCity} >Filter by City</button>
-      <br/>
+          </select>
+        <button onClick={this.breweriesByCity} >Filter by City</button>
+          <br/>
 
 
 
 
       </div>
       :
-      null
+        null
 
     }
 
@@ -162,11 +162,15 @@ class App extends React.Component {
     {breweryData.map(brewery =>{
 
       return <Brewery key={brewery.id} data={brewery} history={this.props.history} />
-    })}
+      })
+    }
+
+
 
     <Switch>
     <Route exact path="/brewery/:id" component={(routerProps) => <BreweryPage {...routerProps} /> } />
-    
+
+
 
     </Switch>
 
