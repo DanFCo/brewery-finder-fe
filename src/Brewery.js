@@ -1,18 +1,45 @@
 import React from 'react';
-import { Link } from 'react-router-dom'
+import { Button, Divider } from 'semantic-ui-react'
+import { connect } from 'react-redux'
 
 class Brewery extends React.Component {
 
+
+
+
+  pageButton = (brewery) =>{
+    this.props.grabSelectBrewery(brewery)
+    this.props.history.push(`/brewery/${brewery.id}`)
+  }
+
   render() {
+// console.log(this.props, "hello from Brewery")
     return (
       <div>
-    {this.props.data.name}
+    <h3>{this.props.data.name}</h3>
+
+    <Button color='yellow' content="More Details" onClick={()=>this.pageButton(this.props.data)} />
+<Divider/>
 
 
       </div>
     );
   }
 
+} //<--------end of class-------------------
+
+function mapStateToProps(state){
+  return{}
 }
 
-export default Brewery ;
+function mapDispatchToProps(dispatch){
+
+  return{
+    grabSelectBrewery:(brewery)=>{
+      dispatch({type:"ADD_SELECT_BREWERY", payload: brewery})
+    }
+  }
+
+}
+
+export default connect(mapStateToProps,mapDispatchToProps)(Brewery) ;

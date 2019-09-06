@@ -2,6 +2,7 @@ import React from 'react';
 import Brewery from './Brewery'
 import { connect } from 'react-redux'
 import BreweryPage from './BreweryPage'
+import { Switch, Route } from 'react-router-dom'
 import './App.css';
 
 
@@ -15,7 +16,7 @@ class App extends React.Component {
   }
 
   componentDidMount(){
-    console.log(this.props)
+    // console.log(this.props)
   }
 
   breweriesByState = (state) =>{
@@ -84,84 +85,91 @@ class App extends React.Component {
     })
 
   }
-  //--^^^right now this is working----------------------VVV Try to get this working
+
 
   dropDownHandler = (event) =>{
-    // this.props.clearBreweries()
+    this.props.clearBreweries()
     this.props.clearFilteredBreweries()
 
+
     this.setState({
-      //   // filteredBreweries: [], <-----this causes all breweries from previous state to load when new state is chosen
+
       select_state: event.target.value,
       citySearch: false
     })
 
-    this.breweriesByState(this.state.select_state)
 
-    // this.promise().testing().then(console.log(this.state, "dropDownHandler"))
+
   }
   //----------------------------------------------------------------------------
 
 
   render() {
     let breweryData = this.props.filteredBreweries.length > 0 ? this.props.filteredBreweries : this.props.breweries
-
+      console.log(this.props)
     return (
 
       <div>
-<p>
-        <select onChange={this.dropDownHandler}>
-          <option>---Choose State---</option>
-          {this.props.us_states.map(state =>{
-            return  <option key={state[1]} value={state[0]} >{state[0]}</option>
-          })
-        }
+
+      <select onChange={this.dropDownHandler}>
+      <option>---Choose State---</option>
+      {this.props.us_states.map(state =>{
+        return  <option key={state[1]} value={state[0]} >{state[0]}</option>
+      })
+    }
+
+
+    </select>
+
+    <button onClick={this.clickHandler} >Submit</button>
+
+
+
+    {
+      //------------------ternary for city search---------------------------
+    }
+
+    { this.state.citySearch ?
+
+      <div>
+      <select onChange={this.changeHandler} name="city">
+      <option value="Any">Any</option>
+      {this.props.cities.map(city =>{
+
+        return <option key={city} value={city}>{city}</option>
+
+      })}
 
 
       </select>
-
-      <button onClick={this.clickHandler} >Submit</button>
-
-    </p>
-    <p>
-      {
-        //------------------ternary for city search---------------------------
-      }
-
-      { this.state.citySearch ?
-
-        <div>
-          <select onChange={this.changeHandler} name="city">
-            <option value="Any">Any</option>
-            {this.props.cities.map(city =>{
-
-              return <option key={city} value={city}>{city}</option>
-
-            })}
-
-
-          </select>
-          <button onClick={this.breweriesByCity} >Filter by City</button>
-          <br/>
+      <button onClick={this.breweriesByCity} >Filter by City</button>
+      <br/>
 
 
 
 
-        </div>
-        :
-        null
+      </div>
+      :
+      null
 
-      }
+    }
 
-      {
-        //--------------end of ternary for search by city------------------------
-      }
-    </p>
+    {
+      //--------------end of ternary for search by city------------------------
+    }
 
-      {breweryData.map(brewery =>{
 
-        return <Brewery key={brewery.id} data={brewery} />
-      })}
+    {breweryData.map(brewery =>{
+
+      return <Brewery key={brewery.id} data={brewery} history={this.props.history} />
+    })}
+
+    <Switch>
+    <Route exact path="/brewery/:id" component={(routerProps) => <BreweryPage {...routerProps} /> } />
+    
+
+    </Switch>
+
 
     </div>
   );
@@ -176,7 +184,8 @@ function mapStateToProps(state){
     us_states: state.us_states,
     breweries: state.breweries,
     filteredBreweries: state.filteredBreweries,
-    cities: state.cities
+    cities: state.cities,
+    selectedBrewery: state.selectedBrewery
 
   }
 

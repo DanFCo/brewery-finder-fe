@@ -6,6 +6,7 @@ class BreweryPage extends Component {
     return (
       <div>
 Hello From Brewery Main page
+
       </div>
     );
   }

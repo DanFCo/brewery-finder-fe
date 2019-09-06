@@ -3,6 +3,7 @@ const defaultState={
   breweries: [],
   cities: [],
   filteredBreweries: [],
+  selectedBrewery: {},
   us_states: [
     ['Alabama', 'AL'],
     ['Alaska', 'AK'],
@@ -69,13 +70,14 @@ function reducer(state=defaultState, action){
       return{...state, breweries: action.payload}
     case "ADD_FILTERED_BREWERIES":
       return{...state, filteredBreweries: action.payload}
-
     case "CLEAR_FILTERED_BREWERIES":
       return{...state, filteredBreweries:[]}
     case "CLEAR_BREWERIES":
       return{...state, breweries:[]}
     case "GRAB_CITIES":
       return{...state, cities: action.payload}
+    case "ADD_SELECT_BREWERY":
+      return{...state, selectedBrewery: action.payload}
     default:
       return state
   }
@@ -85,6 +87,8 @@ function reducer(state=defaultState, action){
 
 
 }
+
+
 
 
 
