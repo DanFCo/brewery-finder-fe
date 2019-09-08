@@ -16,7 +16,14 @@ class App extends React.Component {
   }
 
   componentDidMount(){
-    // console.log(this.props)
+
+
+  }
+
+  hideCitySearch = () =>{
+    this.setState({
+      citySearch: false
+    })
   }
 
   breweriesByState = (state) =>{
@@ -78,6 +85,7 @@ class App extends React.Component {
 
   clickHandler = (event) =>{
     this.breweriesByState(this.state.select_state)
+    this.props.history.push('/')
 
     this.setState({
       filteredBreweries: [],
@@ -107,10 +115,9 @@ class App extends React.Component {
 
   render() {
     let breweryData = this.props.filteredBreweries.length > 0 ? this.props.filteredBreweries : this.props.breweries
-      console.log(this.props)
     return (
-
-      <div>
+<div>
+      <div className="SearchBar">
 
       <select onChange={this.dropDownHandler}>
       <option>---Choose State---</option>
@@ -123,7 +130,7 @@ class App extends React.Component {
     </select>
 
     <button onClick={this.clickHandler} >Submit</button>
-
+</div>
 
 
     {
@@ -132,7 +139,7 @@ class App extends React.Component {
 
     { this.state.citySearch ?
 
-      <div>
+      <div className="SearchBar">
           <select onChange={this.changeHandler} name="city">
               <option value="Any">Any</option>
                   {this.props.cities.map(city =>{
@@ -158,15 +165,15 @@ class App extends React.Component {
       //--------------end of ternary for search by city------------------------
     }
 
-
+<div className="BreweryList">
     {breweryData.map(brewery =>{
 
-      return <Brewery key={brewery.id} data={brewery} history={this.props.history} />
+      return <Brewery key={brewery.id} data={brewery} history={this.props.history} hideCitySearch={this.hideCitySearch} />
       })
     }
 
 
-
+</div>
     <Switch>
     <Route exact path="/brewery/:id" component={(routerProps) => <BreweryPage {...routerProps} /> } />
 

@@ -7,6 +7,7 @@ class Brewery extends React.Component {
   pageButton = (brewery) =>{
     this.clearAllBreweries()
     this.props.grabSelectBrewery(brewery)
+    this.props.hideCitySearch()
     this.props.history.push(`/brewery/${brewery.id}`)
   }
 
@@ -17,7 +18,6 @@ class Brewery extends React.Component {
 
 
   render() {
-// console.log(this.props, "hello from Brewery")
     return (
       <div>
     <h3>{this.props.data.name}</h3>
