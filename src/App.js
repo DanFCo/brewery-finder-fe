@@ -3,6 +3,7 @@ import Brewery from './Brewery'
 import { connect } from 'react-redux'
 import BreweryPage from './BreweryPage'
 import { Switch, Route } from 'react-router-dom'
+import { Button, Icon } from 'semantic-ui-react'
 import './App.css';
 
 
@@ -117,6 +118,7 @@ class App extends React.Component {
     let breweryData = this.props.filteredBreweries.length > 0 ? this.props.filteredBreweries : this.props.breweries
     return (
 <div>
+  <div>
       <div className="SearchBar">
 
       <select onChange={this.dropDownHandler}>
@@ -129,7 +131,7 @@ class App extends React.Component {
 
     </select>
 
-    <button onClick={this.clickHandler} >Submit</button>
+    <Button color="black" onClick={this.clickHandler} content="Search This City" icon='search' />
 </div>
 
 
@@ -149,7 +151,7 @@ class App extends React.Component {
 
 
           </select>
-        <button onClick={this.breweriesByCity} >Filter by City</button>
+        <Button color="black" onClick={this.breweriesByCity} content="Search This City" icon="filter" />
           <br/>
 
 
@@ -160,7 +162,7 @@ class App extends React.Component {
         null
 
     }
-
+</div>
     {
       //--------------end of ternary for search by city------------------------
     }

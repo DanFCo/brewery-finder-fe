@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, Divider } from 'semantic-ui-react'
+import { Button, Divider, Icon } from 'semantic-ui-react'
 import { connect } from 'react-redux'
 
 class Brewery extends React.Component {
@@ -22,7 +22,7 @@ class Brewery extends React.Component {
       <div>
     <h3>{this.props.data.name}</h3>
 
-    <Button color='yellow' content="More Details" onClick={()=>this.pageButton(this.props.data)} />
+    <Button color='yellow' content="More Details" onClick={()=>this.pageButton(this.props.data)} icon='beer'/>
 <Divider/>
 
 
