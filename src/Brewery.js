@@ -16,6 +16,10 @@ class Brewery extends React.Component {
   this.props.clearFilteredBreweries()
   }
 
+noSiteAlert = () =>{
+  alert("Website Unavailable")
+}
+
 
   render() {
     return (
@@ -23,6 +27,13 @@ class Brewery extends React.Component {
     <h3>{this.props.data.name}</h3>
 
     <Button color='yellow' content="More Details" onClick={()=>this.pageButton(this.props.data)} icon='beer'/>
+{this.props.data.website.length > 0?
+  <a href={this.props.data.website} target="_blank">
+      <Button color='blue' content='Website'icon='globe'/>
+    </a>
+    :
+    <Button onClick={this.noSiteAlert} color="gray" content="Website" icon='dont' />
+  }
 <Divider/>
 
 

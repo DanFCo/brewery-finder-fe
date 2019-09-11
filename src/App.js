@@ -118,8 +118,8 @@ class App extends React.Component {
     let breweryData = this.props.filteredBreweries.length > 0 ? this.props.filteredBreweries : this.props.breweries
     return (
 <div>
-  <div>
-      <div className="SearchBar">
+  <div className="search-container">
+      <div className="state-search">
 
       <select onChange={this.dropDownHandler}>
       <option>---Choose State---</option>
@@ -131,7 +131,7 @@ class App extends React.Component {
 
     </select>
 
-    <Button color="black" onClick={this.clickHandler} content="Search This City" icon='search' />
+    <Button color="black" onClick={this.clickHandler} content="Search This State" icon='search' />
 </div>
 
 
@@ -141,7 +141,7 @@ class App extends React.Component {
 
     { this.state.citySearch ?
 
-      <div className="SearchBar">
+      <div className="city-search">
           <select onChange={this.changeHandler} name="city">
               <option value="Any">Any</option>
                   {this.props.cities.map(city =>{
@@ -151,7 +151,7 @@ class App extends React.Component {
 
 
           </select>
-        <Button color="black" onClick={this.breweriesByCity} content="Search This City" icon="filter" />
+        <Button color="black" onClick={this.breweriesByCity} content="Search This City" icon="search" />
           <br/>
 
 

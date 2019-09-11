@@ -8,11 +8,22 @@
 }
 
 
-.SearchBar {
-
+.search-container {
+width: 100%;
 text-align: center;
 
 }
+
+.state-search {
+
+  float: left;
+}
+
+.city-search {
+
+  float: right;
+}
+
 
 h5 {
   color: red;
