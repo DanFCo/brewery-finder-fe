@@ -121,9 +121,10 @@ class App extends React.Component {
 <div>
   <div className="banner">
 
-BREWERY FINDER
+BREWERY
 
 </div>
+<span className="overlap">Finder</span>
   <div className="search-container">
       <div className="state-search">
 
@@ -174,7 +175,11 @@ BREWERY FINDER
     {
       //--------------end of ternary for search by city------------------------
     }
-
+{breweryData == 0 ?
+<div>
+<span className="landing">Start By Choosing a State</span>
+</div>
+:
 <div className="BreweryList">
     {breweryData.map(brewery =>{
 
@@ -185,6 +190,7 @@ BREWERY FINDER
     }
 
 </div>
+}
     <Switch>
     <Route exact path="/brewery/:id" component={(routerProps) => <BreweryPage {...routerProps} /> } />
 
@@ -194,8 +200,10 @@ BREWERY FINDER
 
 
     </div>
+
   );
 }
+
 
 
 }//---------end of class------------
