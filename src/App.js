@@ -116,8 +116,14 @@ class App extends React.Component {
 
   render() {
     let breweryData = this.props.filteredBreweries.length > 0 ? this.props.filteredBreweries : this.props.breweries
+
     return (
 <div>
+  <div className="banner">
+
+BREWERY FINDER
+
+</div>
   <div className="search-container">
       <div className="state-search">
 
@@ -133,6 +139,8 @@ class App extends React.Component {
 
     <Button color="black" onClick={this.clickHandler} content="Search This State" icon='search' />
 </div>
+
+
 
 
     {
@@ -170,10 +178,11 @@ class App extends React.Component {
 <div className="BreweryList">
     {breweryData.map(brewery =>{
 
+
       return <Brewery key={brewery.id} data={brewery} history={this.props.history} hideCitySearch={this.hideCitySearch} />
+
       })
     }
-
 
 </div>
     <Switch>

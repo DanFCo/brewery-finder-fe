@@ -23,8 +23,8 @@ noSiteAlert = () =>{
 
   render() {
     return (
-      <div>
-    <h3>{this.props.data.name}</h3>
+      <div className="single-brewery">
+    <h3 className="list">{this.props.data.name}</h3>
 
     <Button color='yellow' content="More Details" onClick={()=>this.pageButton(this.props.data)} icon='beer'/>
 {this.props.data.website.length > 0?

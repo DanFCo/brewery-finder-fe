@@ -9,46 +9,46 @@ class BreweryPage extends Component {
     return (
       <div>
         <div className="BreweryMain">
-<h1>{this.props.brewery.name}</h1>
-<h5>
+<h1 className="title">{this.props.brewery.name}</h1>
+<span>
   Type Of Brewery:
-</h5>
+</span>
 <p>
 {this.props.brewery.brewery_type}
 </p>
-<h5>
+<span>
   Phone Number:
-</h5>
+</span>
 <p>
   {this.props.brewery.phone}
 </p>
 
-<h5>
+<span>
   Street:
-</h5>
+</span>
 <p>
   {this.props.brewery.street}
 </p>
 
-<h5>
+<span>
   City:
-</h5>
+</span>
 <p>
    {this.props.brewery.city}
 </p>
 
-<h5>
+<span>
   State:
 
-</h5>
+</span>
 <p>
 {this.props.brewery.state}
 </p>
 
-<h5>
+<span>
   Postal Code:
 
-</h5>
+</span>
 <p>
   {this.props.brewery.postal_code}
 </p>

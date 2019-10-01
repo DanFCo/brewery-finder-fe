@@ -1,35 +1,74 @@
+
+
+
+
 .BreweryMain {
   text-align: center;
+  animation: pop-in .6s cubic-bezier(0, .9, .3, 1.2) forwards;
+    opacity: 0;
 }
 
 .BreweryList {
-
+  padding-top: 100px;
   text-align: center;
-}
-
-
-.search-container {
-width: 100%;
-text-align: center;
 
 }
+
+
+
 
 .state-search {
 
+  transition: 3s;
+  padding-left: 50px;
   float: left;
+  animation: slide-top .5s linear forwards;
 }
+
 
 .city-search {
 
+  padding-right:50px;
   float: right;
+  animation: slide-top .5s linear forwards;
+
+}
+
+.banner{
+  padding-top: 25px;
+  text-align: center;
+  font-family: 'Monoton', cursive;
+  font-size: 60px;
+}
+
+.single-brewery {
+  animation: pop-in .6s cubic-bezier(0, .9, .3, 1.2) forwards;
+    opacity: 0;
+}
+.single-brewery:hover{
+   box-shadow: 0px 3px 8px #41486D;
+   transition: .5s;
 }
 
 
-h5 {
+.title {
+  font-family: 'Concert One', cursive;
+  font-size: 50px;
+}
+.list{
+  font-family: 'Concert One', cursive;
+  font-size: 30px;
+}
+
+span {
   color: red;
+  font-size: 25px;
+  font-weight: bold;
+  font-family: 'Permanent Marker', cursive;
 
 }
 p {
+  font-size: 20px;
   font-weight: bold;
 
 }
@@ -40,5 +79,24 @@ p {
   }
   to {
     transform: rotate(360deg);
+  }
+}
+@keyframes slide-top {
+  0% {
+    transform: translateY(-100px);
+  }
+  100% {
+    transform: translateY(25px);
+  }
+}
+
+@keyframes pop-in {
+  0% {
+    opacity: 0;
+    transform: translateY(-4rem) scale(.8);
+  }
+  100% {
+    opacity: 1;
+    transform: none;
   }
 }
