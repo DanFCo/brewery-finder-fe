@@ -4,14 +4,13 @@ import { Map, Marker, GoogleApiWrapper } from 'google-maps-react'
 
 
 
-class GoogleApi extends React.Component {
+class MapContainer extends React.Component {
 render(){
     return (
-<div>
-<div>
+
    <Map google={this.props.google} zoom={16}
       style={{
-         margin: "0",
+         left: "10vw",
          width: "80%",
          height: "60%"
       }}
@@ -20,13 +19,12 @@ render(){
          lng: this.props.longitude
        }}
    >
-      <Marker onClick={this.onMarkerClick}
-       name={'Current location'} />
+      <Marker position={{ lat: this.props.latitude, lng: this.props.longitude}} />
    </Map>
-</div>
-</div>
+
     )
   }
 }//--------------end of class------------------
 export default GoogleApiWrapper({
-apiKey: process.env.REACT_APP_API_KEY})(GoogleApi)
+  apiKey: process.env.REACT_APP_API_KEY
+})(MapContainer)

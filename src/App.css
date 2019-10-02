@@ -50,7 +50,9 @@
    transition: .5s;
 }
 
-
+.maps {
+  left: 50%;
+}
 .title {
   top: 100%;
   font-family: 'Concert One', cursive;
