@@ -7,10 +7,22 @@ class BreweryPage extends Component {
 
   render() {
 
+
     return (
       <div>
         <div className="BreweryMain">
+          {this.props.brewery.website.length > 0 ?
+        <a href={this.props.brewery.website} target="_blank">
+<button className="brewery-link">
+  <h1 className="title">{this.props.brewery.name}</h1>
+</button>
+<br></br>
+<br></br>
+</a>
+
+:
 <h1 className="title">{this.props.brewery.name}</h1>
+}
 <span>
   Type Of Brewery:
 </span>

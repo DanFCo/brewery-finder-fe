@@ -61,7 +61,7 @@ class App extends React.Component {
 
 
   breweriesByCity = (city) =>{
-    console.log(process.env.REACT_APP_API_KEY)
+    
 
     let arrCopy = [...this.props.breweries]
     let newArr = []
