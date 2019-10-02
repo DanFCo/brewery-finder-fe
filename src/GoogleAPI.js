@@ -12,12 +12,12 @@ render(){
    <Map google={this.props.google} zoom={16}
       style={{
          margin: "0",
-         width: "80%", 
+         width: "80%",
          height: "60%"
       }}
       initialCenter={{
-         lat: *PLACE THE COORDINATES HERE*,
-         lng: *PLACE THE COORDINATES HERE*
+         lat: this.props.latitude,
+         lng: this.props.longitude
        }}
    >
       <Marker onClick={this.onMarkerClick}
@@ -29,4 +29,4 @@ render(){
   }
 }//--------------end of class------------------
 export default GoogleApiWrapper({
-apiKey: *PUT YOUR API KEY*})(GoogleApi)
+apiKey: process.env.REACT_APP_API_KEY})(GoogleApi)

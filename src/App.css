@@ -52,6 +52,7 @@
 
 
 .title {
+  top: 100%;
   font-family: 'Concert One', cursive;
   font-size: 50px;
 }

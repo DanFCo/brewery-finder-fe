@@ -32,7 +32,7 @@ noSiteAlert = () =>{
       <Button color='blue' content='Website'icon='globe'/>
     </a>
     :
-    <Button onClick={this.noSiteAlert} color="gray" content="Website" icon='dont' />
+    <Button onClick={this.noSiteAlert} color="grey" content="Website" icon='dont' />
   }
 <Divider/>
 

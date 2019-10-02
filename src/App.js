@@ -61,6 +61,7 @@ class App extends React.Component {
 
 
   breweriesByCity = (city) =>{
+    console.log(process.env.REACT_APP_API_KEY)
 
     let arrCopy = [...this.props.breweries]
     let newArr = []
@@ -175,14 +176,13 @@ BREWERY
     {
       //--------------end of ternary for search by city------------------------
     }
-{breweryData == 0 ?
-<div>
-<span className="landing">Start By Choosing a State</span>
-</div>
-:
+
 <div className="BreweryList">
     {breweryData.map(brewery =>{
+{
+  //------------------------Landing page----------------------------------------
 
+}
 
       return <Brewery key={brewery.id} data={brewery} history={this.props.history} hideCitySearch={this.hideCitySearch} />
 
@@ -190,7 +190,7 @@ BREWERY
     }
 
 </div>
-}
+
     <Switch>
     <Route exact path="/brewery/:id" component={(routerProps) => <BreweryPage {...routerProps} /> } />
 

@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import GoogleApi from './GoogleAPI'
 
 
 class BreweryPage extends Component {
@@ -54,6 +55,17 @@ class BreweryPage extends Component {
 </p>
 
 </div>
+<div>
+{this.props.brewery.latitude === null && this.props.brewery.longitude === null ?
+
+        <h3>No Map Available</h3>
+
+        :
+
+        <GoogleApi {...this.props.brewery} />
+
+      }
+    </div>
       </div>
     );
   }
