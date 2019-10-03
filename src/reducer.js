@@ -67,19 +67,19 @@ function reducer(state=defaultState, action){
 
   switch(action.type){
     case "ADD_BREWERIES":
-      return{...state, breweries: action.payload}
+    return{...state, breweries: action.payload}
     case "ADD_FILTERED_BREWERIES":
-      return{...state, filteredBreweries: action.payload}
+    return{...state, filteredBreweries: action.payload}
     case "CLEAR_FILTERED_BREWERIES":
-      return{...state, filteredBreweries:[]}
+    return{...state, filteredBreweries:[]}
     case "CLEAR_BREWERIES":
-      return{...state, breweries:[]}
+    return{...state, breweries:[]}
     case "GRAB_CITIES":
-      return{...state, cities: action.payload}
+    return{...state, cities: action.payload}
     case "ADD_SELECT_BREWERY":
-      return{...state, selectedBrewery: action.payload}
+    return{...state, selectedBrewery: action.payload}
     default:
-      return state
+    return state
   }
 
 

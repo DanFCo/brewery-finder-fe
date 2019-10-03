@@ -5,22 +5,22 @@ import { Map, Marker, GoogleApiWrapper } from 'google-maps-react'
 
 
 class MapContainer extends React.Component {
-render(){
+  render(){
     return (
 
-   <Map google={this.props.google} zoom={16}
-      style={{
-         left: "10vw",
-         width: "80%",
-         height: "60%"
-      }}
-      initialCenter={{
-         lat: this.props.latitude,
-         lng: this.props.longitude
-       }}
-   >
-      <Marker position={{ lat: this.props.latitude, lng: this.props.longitude}} />
-   </Map>
+      <Map google={this.props.google} zoom={16}
+        style={{
+          left: "10vw",
+          width: "80%",
+          height: "60%"
+        }}
+        initialCenter={{
+          lat: this.props.latitude,
+          lng: this.props.longitude
+        }}
+        >
+        <Marker position={{ lat: this.props.latitude, lng: this.props.longitude}} />
+      </Map>
 
     )
   }

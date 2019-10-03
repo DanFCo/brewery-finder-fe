@@ -61,7 +61,7 @@ class App extends React.Component {
 
 
   breweriesByCity = (city) =>{
-    
+
 
     let arrCopy = [...this.props.breweries]
     let newArr = []
@@ -119,89 +119,89 @@ class App extends React.Component {
     let breweryData = this.props.filteredBreweries.length > 0 ? this.props.filteredBreweries : this.props.breweries
 
     return (
-<div>
-  <div className="banner">
+      <div>
+        <div className="banner">
 
-BREWERY
+          BREWERY
 
-</div>
-<span className="overlap">Finder</span>
-  <div className="search-container">
-      <div className="state-search">
+        </div>
+        <span className="overlap">Finder</span>
+        <div className="search-container">
+          <div className="state-search">
 
-      <select onChange={this.dropDownHandler}>
-      <option>---Choose State---</option>
-      {this.props.us_states.map(state =>{
-        return  <option key={state[1]} value={state[0]} >{state[0]}</option>
-      })
-    }
-
-
-    </select>
-
-    <Button color="black" onClick={this.clickHandler} content="Search This State" icon='search' />
-</div>
-
-
-
-
-    {
-      //------------------ternary for city search---------------------------
-    }
-
-    { this.state.citySearch ?
-
-      <div className="city-search">
-          <select onChange={this.changeHandler} name="city">
-              <option value="Any">Any</option>
-                  {this.props.cities.map(city =>{
-                    return <option key={city} value={city}>{city}</option>
-
-                  })}
+            <select onChange={this.dropDownHandler}>
+              <option>---Choose State---</option>
+              {this.props.us_states.map(state =>{
+                return  <option key={state[1]} value={state[0]} >{state[0]}</option>
+              })
+            }
 
 
           </select>
-        <Button color="black" onClick={this.breweriesByCity} content="Search This City" icon="search" />
-          <br/>
+
+          <Button color="black" onClick={this.clickHandler} content="Search This State" icon='search' />
+        </div>
 
 
 
 
+        {
+          //------------------ternary for city search---------------------------
+        }
+
+        { this.state.citySearch ?
+
+          <div className="city-search">
+            <select onChange={this.changeHandler} name="city">
+              <option value="Any">Any</option>
+              {this.props.cities.map(city =>{
+                return <option key={city} value={city}>{city}</option>
+
+              })}
+
+
+            </select>
+            <Button color="black" onClick={this.breweriesByCity} content="Search This City" icon="search" />
+            <br/>
+
+
+
+
+          </div>
+          :
+          null
+
+        }
       </div>
-      :
-        null
+      {
+        //--------------end of ternary for search by city------------------------
+      }
 
-    }
-</div>
-    {
-      //--------------end of ternary for search by city------------------------
-    }
+      <div className="BreweryList">
+        {breweryData.map(brewery =>{
+          {
+            //------------------------Landing page----------------------------------------
 
-<div className="BreweryList">
-    {breweryData.map(brewery =>{
-{
-  //------------------------Landing page----------------------------------------
+          }
 
-}
+          return <Brewery key={brewery.id} data={brewery} history={this.props.history} hideCitySearch={this.hideCitySearch} />
 
-      return <Brewery key={brewery.id} data={brewery} history={this.props.history} hideCitySearch={this.hideCitySearch} />
+        })
+      }
 
-      })
-    }
-
-</div>
+    </div>
 
     <Switch>
-    <Route exact path="/brewery/:id" component={(routerProps) => <BreweryPage {...routerProps} /> } />
+      <Route exact path="/brewery/:id" component={(routerProps) => <BreweryPage {...routerProps} /> } />
 
 
 
     </Switch>
 
 
-    </div>
+  </div>
 
-  );
+);
 }
 
 
